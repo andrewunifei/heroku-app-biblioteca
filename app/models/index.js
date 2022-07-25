@@ -1,5 +1,9 @@
-const dbConfig = require("../config/db.config.js");
+const url = require("url");
+const config = require("../config/db.config.js");
 const Sequelize = require("sequelize");
+const env = process.env.NODE_ENV || 'development';
+const dbConfig = config[env];
+let sequelize;
 
 if (env === 'production') {
   const { DATABASE_URL } = process.env;
@@ -14,7 +18,7 @@ if (env === 'production') {
   sequelize = new Sequelize(dbName, username, password, config);
 }
 else{
-  const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+  sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
     dialect: dbConfig.dialect,
 

@@ -1,9 +1,9 @@
 module.exports = {
   development: {
     HOST: "localhost",
-    USER: null,
-    PASSWORD: null,
-    DB: null,
+    USER: "postgres",
+    PASSWORD: "123",
+    DB: "bd_biblioteca",
     dialect: "postgres",
     pool: {
       max: 5,
@@ -24,4 +24,3 @@ module.exports = {
     },
   },
 };
-Footer
