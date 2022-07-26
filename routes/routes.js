@@ -1,13 +1,13 @@
-const express = require("express")
-const router = express.Router();
-const auth = require("../controllers/auth.controller.js");
-const associado = require("../controllers/associado.controller.js");
-const publicacao = require("../controllers/publicacao.controller.js");
-const exemplar = require("../controllers/exemplar.controller.js");
-const reserva = require("../controllers/reserva.controller.js");
-const emprestimo = require("../controllers/emprestimo.controller.js");
-
 module.exports = () => {
+    const express = require("express")
+    const router = express.Router();
+    const auth = require("../controllers/auth.controller.js");
+    const associado = require("../controllers/associado.controller.js");
+    const publicacao = require("../controllers/publicacao.controller.js");
+    const exemplar = require("../controllers/exemplar.controller.js");
+    const reserva = require("../controllers/reserva.controller.js");
+    const emprestimo = require("../controllers/emprestimo.controller.js");
+    
     // Funcionário
     //router.post("/", auth.login);
 
