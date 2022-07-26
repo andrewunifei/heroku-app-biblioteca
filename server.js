@@ -7,6 +7,9 @@ const app = express()
 app.use(express.static(path))
 app.use(cors());
 
+appRouter = require("./routes/routes.js");
+app.use("/api", appRouter);
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -20,8 +23,6 @@ app.use((req, res, next) => {
     }
     next();
 });
-
-require("./routes/routes")(app);
 
 const db = require("./models");
 db.sequelize.sync();

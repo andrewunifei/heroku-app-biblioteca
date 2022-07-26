@@ -1,4 +1,4 @@
-module.exports = app => {
+module.exports = () => {
     const auth = require("../controllers/auth.controller.js");
     const associado = require("../controllers/associado.controller.js");
     const publicacao = require("../controllers/publicacao.controller.js");
@@ -39,7 +39,5 @@ module.exports = app => {
     // Empréstimo
     router.post("/cadastrar-emp", emprestimo.cadastrar_emprest);
     router.post("/devolucao", emprestimo.devolucao);
-
-    app.use("/api", router);
   };
   
