@@ -11,6 +11,42 @@ function addDias(data, dias){
   return resultado;
 }
 
+function calcular_atraso(data_devol){
+  let today = new Date();
+  let data_ = new Date(data_devol)
+
+  if (today <= data_){
+    return 0;
+  }
+  else {
+    let diferenca = today - data_
+    return Math.floor(diferenca/(1000 * 3600 * 24));
+  }
+}
+
+exports.relatorio = async (req, res) => {
+  await sequelize.query(
+    "SELECT pub_isbn, cod_assoc, data_devol FROM emprestimo"
+  )
+  .then(async data => {
+      let atrasados = [];
+
+      for(let i = 0; i < data[0].length; i++){
+        if(calcular_atraso(data[0][i].data_devol)){
+          atrasados.push(data[0][i])
+        }
+      }
+      res.status(200).send(atrasados)
+    }
+  )
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Erro"
+    });
+  });
+}
+
 exports.retirar = async (req, res) => {
   if (!req.body.cod_assoc) {
     res.status(400).send({
@@ -49,16 +85,7 @@ exports.devolucao = async (req, res) => {
     and nro_exemplar = \'" + req.body.nro_exemplar + "\'"
   )
   .then(async data => {
-      let today = new Date();
-      let data_devol = new Date(data[0][0].data_devol)
-
-      if (today <= data_devol){
-        multa = 0;
-      }
-      else {
-        let diferenca = today - data_devol
-        multa = Math.floor(diferenca/(1000 * 3600 * 24))
-      }
+      multa = calcular_atraso(data[0][0].data_devol)
 
       await sequelize.query(
         "UPDATE reserva SET status = 'Avisado'\
