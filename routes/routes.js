@@ -29,5 +29,6 @@ router.post("/cadastrar-reserva", reserva.cadastrar_reserva);
 // Empréstimo
 router.post("/cadastrar-emp", emprestimo.cadastrar_emprest);
 router.post("/devolucao", emprestimo.devolucao);
+router.post("/retirar", emprestimo.retirar)
 
 module.exports = router

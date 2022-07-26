@@ -11,6 +11,29 @@ function addDias(data, dias){
   return resultado;
 }
 
+exports.retirar = async (req, res) => {
+  if (!req.body.cod_assoc) {
+    res.status(400).send({
+      message: req.body
+    });
+    return;
+  }
+
+  await sequelize.query(
+    "UPDATE reserva SET status = 'Anulado'\
+     WHERE codigo_assoc = \'" + req.body.cod_assoc+ "\'"
+  )
+  .then(async data => {
+      res.status(200).send({message:"Ok"})
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Erro"
+    });
+  });
+}
+
 exports.devolucao = async (req, res) => {
   let multa;
 
