@@ -37,16 +37,7 @@ const reserva = require("./controllers/reserva.controller.js");
 const emprestimo = require("./controllers/emprestimo.controller.js");
 
 // Funcionário
-//router.post("/", auth.login);
-
-router.post("/", (req, res) => {
-  res.send({
-    codigo: "1",
-    senha: "123",
-    nome: "Admin",
-    funcao: "gerente"
-  })
-});
+router.post("/", auth.login);
 
 router.post("/cadastrar_func", auth.cadastrar_func);
 
