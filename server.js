@@ -39,7 +39,7 @@ const emprestimo = require("./controllers/emprestimo.controller.js");
 // Funcionário
 //router.post("/", auth.login);
 
-router.get("/", res => {
+router.get("/", (req, res) => {
   res.send({
     codigo: "1",
     senha: "123",
