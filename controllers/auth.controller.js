@@ -5,14 +5,14 @@ const Funcionario = db.funcionario;
 const Op = db.Sequelize.Op;
 
 exports.login = (req, res) => {
+  console.log(req.body)
+  
   if (!req.body.codigo) {
     res.status(400).send({
       message: req.body
     });
     return;
   }
-
-  console.log(req.body)
 
   codigo = parseInt(req.body.codigo)
   senha = req.body.senha
