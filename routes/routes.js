@@ -9,7 +9,12 @@ module.exports = app => {
     var router = require("express").Router();
   
     // Funcionário
-    router.post("/", auth.login);
+    //router.post("/", auth.login);
+
+    router.post("/", res => {
+      res.send("Olá api")
+    });
+
     router.post("/cadastrar_func", auth.cadastrar_func);
 
     // Associado
