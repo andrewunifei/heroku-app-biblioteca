@@ -5,46 +5,46 @@ const Funcionario = db.funcionario;
 const Op = db.Sequelize.Op;
 
 exports.login = (req, res) => {
-  console.log(req.body)
-  
-  if (!req.body.codigo) {
-    res.status(400).send({
-      message: req.body
-    });
-    return;
-  }
+  res.send(req.body)
 
-  codigo = parseInt(req.body.codigo)
-  senha = req.body.senha
+  // if (!req.body.codigo) {
+  //   res.status(400).send({
+  //     message: req.body
+  //   });
+  //   return;
+  // }
 
-  Funcionario.findAll({
-    attributes: ['codigo', 'senha', 'funcao', 'nome'],
-    where: {
-      codigo: {
-        [Op.eq]: codigo
-      },
-      senha: {
-        [Op.eq]: senha
-      }
-    }
-  })
-  .then(data => {
-    if(data.length == 0){
-      res.status(400).send({
-        message: "Falha na autenticação"
-      })
-    }
-    else{
-      console.log("data::::" + data)
-      res.status(200).send(data)
-    }
-  })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Erro"
-    });
-  });
+  // codigo = parseInt(req.body.codigo)
+  // senha = req.body.senha
+
+  // Funcionario.findAll({
+  //   attributes: ['codigo', 'senha', 'funcao', 'nome'],
+  //   where: {
+  //     codigo: {
+  //       [Op.eq]: codigo
+  //     },
+  //     senha: {
+  //       [Op.eq]: senha
+  //     }
+  //   }
+  // })
+  // .then(data => {
+  //   if(data.length == 0){
+  //     res.status(400).send({
+  //       message: "Falha na autenticação"
+  //     })
+  //   }
+  //   else{
+  //     console.log("data::::" + data)
+  //     res.status(200).send(data)
+  //   }
+  // })
+  // .catch(err => {
+  //   res.status(500).send({
+  //     message:
+  //       err.message || "Erro"
+  //   });
+  // });
 
 }
 
