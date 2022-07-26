@@ -25,7 +25,8 @@ const db = require("./models");
 db.sequelize.sync();
 
 app.get('/', (req, res) => {
-    res.sendFile(path + 'index.html')
+    res.send("Hello world")
+    //res.sendFile(path + 'index.html')
 });
 
 appRouter = require("./routes/routes.js");
