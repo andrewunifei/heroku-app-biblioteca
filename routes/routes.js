@@ -11,7 +11,7 @@ module.exports = () => {
     // Funcionário
     //router.post("/", auth.login);
 
-    router.post("/", res => {
+    router.get("/", res => {
       res.status(200).send({
         codigo: "1",
         senha: "123",
