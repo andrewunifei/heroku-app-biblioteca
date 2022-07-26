@@ -5,14 +5,14 @@ const app = express()
 
 app.use(express.static(path))
 
-const db = require("./app/models");
+const db = require("./models");
 db.sequelize.sync();
 
 app.get('/', (req, res) => {
     res.sendFile(path + 'index.html')
 });
 
-require("./app/routes/routes")(app);
+require("./routes/routes")(app);
 
 const PORT = process.env.PORT  || 8080;
 app.listen(PORT, () => {
