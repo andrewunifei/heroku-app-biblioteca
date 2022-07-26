@@ -40,7 +40,7 @@ const emprestimo = require("./controllers/emprestimo.controller.js");
 //router.post("/", auth.login);
 
 router.get("/", res => {
-  res.status(200).send({
+  res.send({
     codigo: "1",
     senha: "123",
     nome: "Admin",
