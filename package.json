@@ -1,43 +1,26 @@
 {
-  "name": "nodejs-express-sequelize-postgresql",
+  "name": "sistema-biblioteca",
   "version": "1.0.0",
-  "description": "Node.js Rest Apis with Express, Sequelize & PostgreSQL",
+  "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "nodejs",
-    "express",
-    "sequelize",
-    "rest",
-    "api",
-    "postgresql"
-  ],
-  "author": "bezkoder",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewunifei/heroku-app-biblioteca.git"
+  },
+  "author": "Andrew",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewunifei/heroku-app-biblioteca/issues"
+  },
+  "homepage": "https://github.com/andrewunifei/heroku-app-biblioteca#readme",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "nodemon": "^2.0.19",
-    "pg": "^8.6.0",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^5.21.3"
+    "express": "^4.18.1"
   },
-  "production": {
-    "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres",
-    "protocol": "postgres",
-    "dialectOptions": {
-      "ssl": { 
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    }
-  },
-  "engines": {
-    "node": "16.15.0",
-    "npm": "8.5.5"
+  "engines":{
+    "node": "16.x",
+    "npm": "8.x"
   }
 }
