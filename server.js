@@ -7,9 +7,6 @@ const app = express()
 app.use(express.static(path))
 app.use(cors());
 
-appRouter = require("./routes/routes.js");
-app.use("/api", appRouter);
-
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -30,6 +27,9 @@ db.sequelize.sync();
 app.get('/', (req, res) => {
     res.sendFile(path + 'index.html')
 });
+
+appRouter = require("./routes/routes.js");
+app.use("/api", appRouter);
 
 const PORT = process.env.PORT  || 8080;
 app.listen(PORT, () => {
