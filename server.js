@@ -1,9 +1,11 @@
 const express = require("express")
+const cors = require("cors");
 const path = __dirname + "/dist/";
 
 const app = express()
 
 app.use(express.static(path))
+app.use(cors());
 
 const db = require("./models");
 db.sequelize.sync();

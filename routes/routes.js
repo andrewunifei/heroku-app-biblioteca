@@ -1,5 +1,3 @@
-const { exemplar, reserva } = require("../models/index.js");
-
 module.exports = app => {
     const auth = require("../controllers/auth.controller.js");
     const associado = require("../controllers/associado.controller.js");
