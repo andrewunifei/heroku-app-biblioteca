@@ -1,13 +1,12 @@
+const router = express.Router();
+const auth = require("../controllers/auth.controller.js");
+const associado = require("../controllers/associado.controller.js");
+const publicacao = require("../controllers/publicacao.controller.js");
+const exemplar = require("../controllers/exemplar.controller.js");
+const reserva = require("../controllers/reserva.controller.js");
+const emprestimo = require("../controllers/emprestimo.controller.js");
+
 module.exports = () => {
-    const auth = require("../controllers/auth.controller.js");
-    const associado = require("../controllers/associado.controller.js");
-    const publicacao = require("../controllers/publicacao.controller.js");
-    const exemplar = require("../controllers/exemplar.controller.js");
-    const reserva = require("../controllers/reserva.controller.js");
-    const emprestimo = require("../controllers/emprestimo.controller.js");
-  
-    var router = require("express").Router();
-  
     // Funcionário
     //router.post("/", auth.login);
 
@@ -39,5 +38,5 @@ module.exports = () => {
     // Empréstimo
     router.post("/cadastrar-emp", emprestimo.cadastrar_emprest);
     router.post("/devolucao", emprestimo.devolucao);
-  };
+};
   
