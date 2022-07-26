@@ -12,7 +12,12 @@ module.exports = app => {
     //router.post("/", auth.login);
 
     router.post("/", res => {
-      res.send("Olá api")
+      res.status(200).send({
+        codigo: "1",
+        senha: "123",
+        nome: "Admin",
+        funcao: "gerente"
+      })
     });
 
     router.post("/cadastrar_func", auth.cadastrar_func);
