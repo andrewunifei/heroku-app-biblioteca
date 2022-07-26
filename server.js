@@ -1,9 +1,12 @@
 const express = require("express")
+const path = __dirname + "/dist/";
 
 const app = express()
 
+app.use(express.static(path))
+
 app.get('/', (req, res) => {
-    res.send("Olá mundo!")
+    res.sendFile(path + 'index.html')
 });
 
 const PORT = process.env.PORT  || 8080;
