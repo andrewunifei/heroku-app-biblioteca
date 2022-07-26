@@ -21,14 +21,14 @@ app.use((req, res, next) => {
     next();
 });
 
+require("./routes/routes")(app);
+
 const db = require("./models");
 db.sequelize.sync();
 
 app.get('/', (req, res) => {
     res.sendFile(path + 'index.html')
 });
-
-require("./routes/routes")(app);
 
 const PORT = process.env.PORT  || 8080;
 app.listen(PORT, () => {
