@@ -135,6 +135,103 @@ exports.devolucao = async (req, res) => {
   });
 }
 
+
+exports.renovacao = async (req, res) => {
+  let flag = true;
+
+  await sequelize.query(
+    "select * from emprestimo where pub_isbn = \'" + req.body.pub_isbn + "\'\
+    and nro_exemplar = \'" + req.body.nro_exemplar + "\'"
+  )
+  .then(data => {
+    if(data[0].length > 0){
+      if(req.body.data_emp != data[0][0].data_devol){
+        res.status(200).send({flag:false, message: "Não foi possível realizar a renovação: hoje não é a data de devolução do exemplar"})
+
+        flag = false;
+      }
+    }
+    else{
+      res.status(200).send({flag: false, message: "Erro. Exemplar não foi emprestado."})
+
+      flag = false;
+    }
+    }
+  )
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Erro"
+    });
+  })
+
+  if(flag){
+    await sequelize.query(
+      "select count(*) from reserva where pub_isbn = \'" + req.body.pub_isbn + "\'"
+    )
+    .then(data => {
+      if(data[0][0].count > 0){
+        res.status(200).send({flag: false, message: "Exemplar na fila de reserva."})
+
+        flag = false;
+      }
+    })
+  }
+
+  if(flag){
+    await Associado.findAll({
+      attributes: ['status'],
+      where: {
+        codigo: {
+          [Op.eq]: req.body.cod_assoc
+        }
+      }
+    })
+    .then(async data => {
+      let calc_data;
+      let data_array = req.body.data_emp.split('-');
+
+      let hold_data = new Date(data_array[0], data_array[1] - 1, data_array[2]) ;
+
+      if(data[0].dataValues.status == 'Grad'){
+        calc_data = addDias(hold_data, 7);
+        calc_data = calc_data.toISOString().slice(0,10);
+      }
+      else if(data[0].dataValues.status == 'Posgrad'){
+        calc_data = addDias(hold_data, 10);
+        calc_data = calc_data.toISOString().slice(0,10);
+      }
+      else{
+        calc_data = addDias(hold_data, 14);
+        calc_data = calc_data.toISOString().slice(0,10);
+      }
+
+      await Emprestimo.create({
+        nro_exemplar: req.body.nro_exemplar,
+        pub_isbn: req.body.pub_isbn,
+        cod_assoc: req.body.cod_assoc,
+        data_emp: req.body.data_emp,
+        data_devol: calc_data
+      })
+      .then(data => {
+        res.status(200).send({flag:true, data})
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Erro"
+        })
+      })
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Erro"
+      });
+    })
+  }
+}
+
 exports.cadastrar_emprest = async (req, res) => {
   if (!req.body.cod_assoc) {
     res.status(400).send({
@@ -142,6 +239,7 @@ exports.cadastrar_emprest = async (req, res) => {
     });
     return;
   }
+
 
   await sequelize.query(
     "SELECT COUNT(exemplar.numero) FROM exemplar LEFT JOIN emprestimo\
