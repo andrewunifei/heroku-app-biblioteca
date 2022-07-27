@@ -24,6 +24,31 @@ function calcular_atraso(data_devol){
   }
 }
 
+exports.consultar_emp = async (req, res) => {
+  await sequelize.query(
+    "SELECT pub_isbn, cod_assoc, data_devol FROM emprestimo"
+  )
+  .then(async data => {
+      let emprestimos = [];
+
+      for(let i = 0; i < data[0].length; i++){
+        emprestimos.push({
+          pub_isbn: data[0][i].pub_isbn,
+          data_devol: data[0][i].data_devol,
+          dias: calcular_atraso(data[0][i].data_devol)
+        })
+      }
+      res.status(200).send(emprestimos)
+    }
+  )
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Erro"
+    });
+  });
+}
+
 exports.relatorio = async (req, res) => {
   await sequelize.query(
     "SELECT pub_isbn, cod_assoc, data_devol FROM emprestimo"
